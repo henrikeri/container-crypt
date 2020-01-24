@@ -46,11 +46,11 @@ if [ -f /home/$SUDO_USER/.config/container-crypt.conf ]; then
 				mount /dev/mapper/"$CONTAINERNAME"_container $MOUNTPATH
 				chown $SUDO_USER:$SUDO_USER $MOUNTPATH
 				printf "Successfully mounted private volume\n"
-				read -n 1 -s -r -p "Press enter to quit"
+				read -n 1 -s -r -p "Press enter to quit\n"
 				exit 1
 			else
 				printf "Failed to unlock volume!\n"
-				read -n 1 -s -r -p "Press enter to continue"
+				read -n 1 -s -r -p "Press enter to continue\n"
 				break
 			fi
 					fi
@@ -59,7 +59,7 @@ if [ -f /home/$SUDO_USER/.config/container-crypt.conf ]; then
 					umount $MOUNTPATH
 					cryptsetup luksClose "$CONTAINERNAME"_container
 					printf "Succesfully umounted and locked private volume\n"
-					read -n 1 -s -r -p "Press any key to exit"
+					read -n 1 -s -r -p "Press any key to exit\n"
 					exit 1	
 					;;
 				"Quit")
