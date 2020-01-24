@@ -4,6 +4,10 @@
 clear
 printf "\n-------------------\n| Container-crypt |\n-------------------\n"
 
+
+#Checks for sudo and cryptsetup (dm-crypt)
+[ "$(command -v sudo | grep -ic sudo)"  -lt 1 ] && [ "$(command -v cryptsetup | grep -ic cryptsetup)" -lt 1 ] && printf "\nSudo or cryptsetup missing! Please install using you package manager.\n" && exit 1
+
 #Escalate To root with sudo if not already root
 [ "$(whoami)" != "root" ] && printf "\nRequires elevated privledges for dmcrypt and mount/umount\n" && exec sudo -- "$0" "$@"  
 
