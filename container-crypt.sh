@@ -41,12 +41,10 @@ if [ -f /home/$SUDO_USER/.config/container-crypt.conf ]; then
 						printf "Please enter password when requested...\n"
 						cryptsetup -v luksOpen $CONTAINERPATH/$CONTAINERNAME "$CONTAINERNAME"_container
 
-			#cryptsetup -v luksOpen /home/$SUDO_USER/Documents/PRIVATE container
+			
 			if [ $? -eq 0 ]; then
-				#mount /dev/mapper/container /home/$SUDO_USER/Documents/Private
 				mount /dev/mapper/"$CONTAINERNAME"_container $MOUNTPATH
-				chown $SUDO_USER $MOUNTPATH
-				chgrp $SUDO_USER $MOUNTPATH
+				chown $SUDO_USER:$SUDO_USER $MOUNTPATH
 				printf "Successfully mounted private volume\n"
 				read -n 1 -s -r -p "Press enter to quit"
 				exit 1
@@ -187,17 +185,11 @@ else
 
 
 			#Change ownership of newly created files to be that of user
-			$(chown $SUDO_USER /home/$SUDO_USER/.config/container-crypt.conf)
-			$(chgrp $SUDO_USER /home/$SUDO_USER/.config/container-crypt.conf)
-
-			$(chown $SUDO_USER $CONTAINERPATH)
-			$(chgrp $SUDO_USER $CONTAINERPATH)
-
-			$(chown $SUDO_USER $CONTAINERPATH/$CONTAINERNAME)
-			$(chgrp $SUDO_USER $CONTAINERPATH/$CONTAINERNAME)
-
-			$(chown $SUDO_USER $MOUNTPATH)
-			$(chgrp $SUDO_USER $MOUNTPATH)
-
+			$(chown $SUDO_USER:$SUDO_USER /home/$SUDO_USER/.config/container-crypt.conf)
+			
+			$(chown $SUDO_USER:$SUDO_USER $CONTAINERPATH)
+			$(chown $SUDO_USER:$SUDO_USER $CONTAINERPATH/$CONTAINERNAME)
+			$(chown $SUDO_USER:$SUDO_USER $MOUNTPATH)
+			
 fi			
 
